@@ -31,18 +31,18 @@ H = lambda*[i==j ? 2.0-V[i]/lambda : (i==j+1 || i+1==j) ? -1.0 : 0.0 for i in 1:
 
 #U(t) = (I-0.5im*t*H)*inv(I+0.5im*t*H)
 
-Ψ = [eigvecs(H)[i,100] for i in 1:100]
+Ψ = [eigvecs(H)[i,100]+eigvecs(H)[i,98] for i in 1:100]
 
-print(eigvals(H))
+print(dot(Ψ,H*Ψ))
 
 U(t, Ψ) = (I+0.5im*t*H)\((I-0.5im*t*H)*Ψ)
 
 anim = @animate for t in 0:1:100
     global Ψ
-    #plot(1:100,abs2.(Ψ))
+    plot(1:100,abs2.(Ψ))
     #plot(1:100,Ψ)
-    plot(1:100,real.(Ψ))
-    Ψ = U(1, Ψ)
+    #plot(1:100,real.(Ψ))
+    Ψ = U(0.1, Ψ)
 end
 
 gif(anim, "psi2plot.gif", fps=15)
