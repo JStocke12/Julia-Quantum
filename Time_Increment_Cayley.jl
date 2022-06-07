@@ -21,7 +21,7 @@ delta_x = 20/99
 
 x = [-10+(i-1)*delta_x for i in 1:100]
 
-#Ψ = [delta_x/sqrt(sqrt(pi))*ℯ^(-(x[i]^2)/2) for i in 1:100]
+Ψ = [delta_x/sqrt(sqrt(pi))*ℯ^(-(x[i]^2)/2) for i in 1:100]
 
 lambda = 1/(2*delta_x^2)
 
@@ -31,7 +31,7 @@ H = lambda*[i==j ? 2.0-V[i]/lambda : (i==j+1 || i+1==j) ? -1.0 : 0.0 for i in 1:
 
 #U(t) = (I-0.5im*t*H)*inv(I+0.5im*t*H)
 
-Ψ = [eigvecs(H)[i,100]+eigvecs(H)[i,98] for i in 1:100]
+#Ψ = [eigvecs(H)[i,100]+eigvecs(H)[i,98] for i in 1:100]
 
 print(dot(Ψ,H*Ψ))
 
@@ -42,7 +42,7 @@ anim = @animate for t in 0:1:100
     plot(1:100,abs2.(Ψ))
     #plot(1:100,Ψ)
     #plot(1:100,real.(Ψ))
-    Ψ = U(0.1, Ψ)
+    Ψ = U(0.5, Ψ)
 end
 
 gif(anim, "psi2plot.gif", fps=15)
